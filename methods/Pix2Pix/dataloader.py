@@ -9,7 +9,6 @@ import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
-from config import Hyperparamater
 from IPython import display
 from matplotlib import pyplot as plt
 from PIL import Image
@@ -17,6 +16,8 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.utils import save_image
 from tqdm import tqdm
+
+from methods.Pix2Pix.constants.config import Hyperparamater
 
 
 def read_path(filepath) -> List[str]:
@@ -77,13 +78,3 @@ def show_img_sample(img: torch.Tensor, img1: torch.Tensor):
     plt.subplots_adjust(wspace=0, hspace=0)
     plt.show()
 
-train = read_path("train")
-val = read_path("val")
-train_ds = Dataset(train)
-val_ds = Dataset(val)
-
-torch.manual_seed(0)
-np.random.seed(0)
-
-train_dl = DataLoader(train_ds, batch_size=Hyperparamater.BATCH_SIZE, shuffle=True, drop_last=True)
-val_dl = DataLoader(val_ds, batch_size=Hyperparamater.BATCH_SIZE, shuffle=False, drop_last=False)

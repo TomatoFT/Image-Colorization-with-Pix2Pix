@@ -1,11 +1,39 @@
+import datetime
+import json
+import os
+import pathlib
+import pickle
+import time
+from glob import glob
+from statistics import mean
+from typing import Dict, List, Tuple
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+import tensorflow as tf
+import torch
+import torch.nn as nn
+from IPython import display
+from matplotlib import pyplot as plt
+from PIL import Image
+from torch.utils.data import DataLoader
+from torchvision import transforms
+from torchvision.utils import save_image
+from tqdm import tqdm
+
+from .constants.config import Device, Hyperparamater
+from .model import Generator
+
+
 def train_fn(train_dl, G, D, criterion_bce, criterion_mae, optimizer_g, optimizer_d):
     G.train()
     D.train()
     LAMBDA = 100.0
     total_loss_g, total_loss_d = [], []
     for i, (input_img, real_img) in enumerate(tqdm(train_dl)):
-        input_img = input_img.to(device)
-        real_img = real_img.to(device)
+        input_img = input_img.to(Device.device)
+        real_img = real_img.to(Device.device)
 
         real_label = torch.ones(input_img.size()[0], 1, 2, 2)
         fake_label = torch.zeros(input_img.size()[0], 1, 2, 2)
@@ -63,8 +91,8 @@ def show_losses(g, d):
 
 
 def train_loop(train_dl, G, D, num_epoch, lr=0.0002, betas=(0.5, 0.999)):
-    G.to(device)
-    D.to(device)
+    G.to(Device.device)
+    D.to(Device.device)
     optimizer_g = torch.optim.Adam(G.parameters(), lr=lr, betas=betas)
     optimizer_d = torch.optim.Adam(D.parameters(), lr=lr, betas=betas)
     criterion_mae = nn.L1Loss()
@@ -90,16 +118,12 @@ def train_loop(train_dl, G, D, num_epoch, lr=0.0002, betas=(0.5, 0.999)):
     finally:
         return G, D
     
-G = Generator()
-D = Discriminator()
-EPOCH = 30
-trained_G, trained_D = train_loop(train_dl, G, D, EPOCH)
 
 def load_model(name):
     G = Generator()
     G.load_state_dict(torch.load(f"weight/G{name}.pth", map_location={"cuda:0": "cpu"}))
     G.eval()
-    return G.to(device)
+    return G.to(Device.device)
 
 def train_show_img(name, G):
 #     G = load_model(name)
@@ -112,9 +136,4 @@ def train_show_img(name, G):
         ax[i].set_xticks([])
         ax[i].set_yticks([])
 
-def de_norm(img):
-    img_ = img.mul(torch.FloatTensor(STD).view(3, 1, 1))
-    img_ = img_.add(torch.FloatTensor(MEAN).view(3, 1, 1)).detach().numpy()
-    img_ = np.transpose(img_, (1, 2, 0))
-    return img_
 

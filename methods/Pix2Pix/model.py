@@ -14,7 +14,6 @@ import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
-from config import Hyperparamater
 from IPython import display
 from matplotlib import pyplot as plt
 from PIL import Image
@@ -22,6 +21,8 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.utils import save_image
 from tqdm import tqdm
+
+from methods.Pix2Pix.constants.config import Hyperparamater
 
 
 class Generator(nn.Module):
