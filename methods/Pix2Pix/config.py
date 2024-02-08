@@ -1,5 +1,7 @@
 from enum import Enum
+
 import torch
+
 
 class Hyperparamater(Enum):
     MEAN = (0.5, 0.5, 0.5,)
