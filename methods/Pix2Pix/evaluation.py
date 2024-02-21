@@ -8,6 +8,7 @@ import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
+from constants.config import Device, Hyperparamater
 from IPython import display
 from matplotlib import pyplot as plt
 from PIL import Image
@@ -15,8 +16,6 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.utils import save_image
 from tqdm import tqdm
-
-from .constants.config import Device, Hyperparamater
 
 
 def de_norm(img):

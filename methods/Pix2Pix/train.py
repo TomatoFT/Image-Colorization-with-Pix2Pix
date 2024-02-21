@@ -14,16 +14,15 @@ import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
+from constants.config import Device, Hyperparamater
 from IPython import display
 from matplotlib import pyplot as plt
+from model import Generator
 from PIL import Image
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.utils import save_image
 from tqdm import tqdm
-
-from .constants.config import Device, Hyperparamater
-from .model import Generator
 
 
 def train_fn(train_dl, G, D, criterion_bce, criterion_mae, optimizer_g, optimizer_d):
