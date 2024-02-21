@@ -23,14 +23,19 @@ from train import train_loop, train_show_img
 
 train = read_path("train")
 val = read_path("val")
+
 train_ds = Dataset(train)
 val_ds = Dataset(val)
 
 torch.manual_seed(0)
 np.random.seed(0)
 
-train_dl = DataLoader(train_ds, batch_size=Hyperparamater.BATCH_SIZE, shuffle=True, drop_last=True)
-val_dl = DataLoader(val_ds, batch_size=Hyperparamater.BATCH_SIZE, shuffle=False, drop_last=False)
+print(f'BATCH SIZE: {Hyperparamater.BATCH_SIZE}, Type: {type(Hyperparamater.BATCH_SIZE)}')
+
+train_dl = DataLoader(train_ds, batch_size=Hyperparamater.BATCH_SIZE,
+                       shuffle=True, drop_last=True)
+val_dl = DataLoader(val_ds, batch_size=Hyperparamater.BATCH_SIZE, 
+                    shuffle=False, drop_last=False)
 
 G = Generator()
 D = Discriminator()
