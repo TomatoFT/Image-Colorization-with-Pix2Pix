@@ -16,12 +16,12 @@ from torchvision import transforms
 from torchvision.utils import save_image
 from tqdm import tqdm
 
-from .constants.config import Hyperparamater
+from constants.config import Hyperparamater
 
-from .dataloader import Dataset, read_path
-from .evaluation import evaluate
-from .model import Discriminator, Generator
-from .train import train_loop, train_show_img
+from dataloader import Dataset, read_path
+from evaluation import evaluate
+from model import Discriminator, Generator
+from train import train_loop, train_show_img
 
 train = read_path("train")
 val = read_path("val")
