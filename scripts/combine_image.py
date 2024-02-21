@@ -3,10 +3,10 @@ import os
 from PIL import Image
 
 # Replace 'download_path' with the directory where you saved the downloaded images
-download_path = '/content/drive/MyDrive/dataset_imgClr/original'
+download_path = '/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/original'
 
 # Replace 'output_path' with the directory where you want to save the combined images
-output_path = '/content/drive/MyDrive/dataset_imgClr/dataset'
+output_path = '/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/dataset'
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_path):

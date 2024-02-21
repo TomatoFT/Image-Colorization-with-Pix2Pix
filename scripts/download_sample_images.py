@@ -1,10 +1,9 @@
 import os
-import random
 
 import requests
 
 # Replace 'download_path' with the directory where you want to save the images
-download_path = 'DIRECTORY WHERE TO SAVE THE IMAGES'
+download_path = '/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/original'
 
 # Create the download directory if it doesn't exist
 if not os.path.exists(download_path):
