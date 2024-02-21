@@ -16,7 +16,7 @@ from torchvision import transforms
 from torchvision.utils import save_image
 from tqdm import tqdm
 
-from methods.Pix2Pix.constants.config import Hyperparamater
+from .constants.config import Hyperparamater
 
 from .dataloader import Dataset, read_path
 from .evaluation import evaluate
