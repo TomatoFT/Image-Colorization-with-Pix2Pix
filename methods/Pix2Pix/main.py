@@ -32,9 +32,9 @@ np.random.seed(0)
 
 print(f'BATCH SIZE: {Hyperparamater.BATCH_SIZE}, Type: {type(Hyperparamater.BATCH_SIZE)}')
 
-train_dl = DataLoader(train_ds, batch_size=Hyperparamater.BATCH_SIZE,
+train_dl = DataLoader(train_ds, batch_size=16,
                        shuffle=True, drop_last=True)
-val_dl = DataLoader(val_ds, batch_size=Hyperparamater.BATCH_SIZE, 
+val_dl = DataLoader(val_ds, batch_size=16, 
                     shuffle=False, drop_last=False)
 
 G = Generator()
