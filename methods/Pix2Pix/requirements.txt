@@ -3,3 +3,6 @@ torchvision
 Pillow
 tensorflow
 matplotlib
+tensorflow
+IPython
+gradio
