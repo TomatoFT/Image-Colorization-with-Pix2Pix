@@ -21,7 +21,7 @@ from methods.Pix2Pix.constants.config import Hyperparamater
 
 
 def read_path(filepath) -> List[str]:
-    root_path = "/content/drive/MyDrive/dataset_imgClr/dataset"
+    root_path = "/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/dataset"
     path = os.path.join(root_path, filepath)
     dataset = []
     for p in glob(path+"/"+"*.jpg"):
