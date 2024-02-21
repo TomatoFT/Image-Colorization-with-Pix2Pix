@@ -9,7 +9,7 @@ import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
-from constants.config import Hyperparamater
+from config.constants import MEAN, RESIZE, STD
 from IPython import display
 from matplotlib import pyplot as plt
 from PIL import Image
@@ -29,9 +29,9 @@ def read_path(filepath) -> List[str]:
 
 
 class Transform():
-    def __init__(self, resize=Hyperparamater.RESIZE, 
-                 mean=Hyperparamater.MEAN, 
-                 std=Hyperparamater.STD):
+    def __init__(self, resize=RESIZE, 
+                 mean=MEAN, 
+                 std=STD):
         self.data_transform = transforms.Compose([
             transforms.Resize((resize, resize)),
             transforms.ToTensor(),

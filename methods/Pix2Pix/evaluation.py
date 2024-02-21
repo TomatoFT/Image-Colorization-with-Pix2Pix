@@ -8,7 +8,7 @@ import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
-from constants.config import Device, Hyperparamater
+from config.constants import DEVICE, MEAN, STD
 from IPython import display
 from matplotlib import pyplot as plt
 from PIL import Image
@@ -19,8 +19,8 @@ from tqdm import tqdm
 
 
 def de_norm(img):
-    img_ = img.mul(torch.FloatTensor(Hyperparamater.STD).view(3, 1, 1))
-    img_ = img_.add(torch.FloatTensor(Hyperparamater.MEAN).view(3, 1, 1)).detach().numpy()
+    img_ = img.mul(torch.FloatTensor(STD).view(3, 1, 1))
+    img_ = img_.add(torch.FloatTensor(MEAN).view(3, 1, 1)).detach().numpy()
     img_ = np.transpose(img_, (1, 2, 0))
     return img_
 
@@ -30,8 +30,8 @@ def evaluate(val_dl, name, G):
         ax = axes.ravel()
 #         G = load_model(name)
         for input_img, real_img in tqdm(val_dl):
-            input_img = input_img.to(Device.device)
-            real_img = real_img.to(Device.device)
+            input_img = input_img.to(DEVICE)
+            real_img = real_img.to(DEVICE)
 
             fake_img = G(input_img)
             batch_size = input_img.size()[0]

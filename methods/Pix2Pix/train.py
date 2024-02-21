@@ -14,7 +14,7 @@ import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
-from constants.config import Device, Hyperparamater
+from config.constants import DEVICE
 from IPython import display
 from matplotlib import pyplot as plt
 from model import Generator
@@ -31,8 +31,8 @@ def train_fn(train_dl, G, D, criterion_bce, criterion_mae, optimizer_g, optimize
     LAMBDA = 100.0
     total_loss_g, total_loss_d = [], []
     for i, (input_img, real_img) in enumerate(tqdm(train_dl)):
-        input_img = input_img.to(Device.device)
-        real_img = real_img.to(Device.device)
+        input_img = input_img.to(DEVICE)
+        real_img = real_img.to(DEVICE)
 
         real_label = torch.ones(input_img.size()[0], 1, 2, 2)
         fake_label = torch.zeros(input_img.size()[0], 1, 2, 2)
@@ -90,8 +90,8 @@ def show_losses(g, d):
 
 
 def train_loop(train_dl, G, D, num_epoch, lr=0.0002, betas=(0.5, 0.999)):
-    G.to(Device.device)
-    D.to(Device.device)
+    G.to(DEVICE)
+    D.to(DEVICE)
     optimizer_g = torch.optim.Adam(G.parameters(), lr=lr, betas=betas)
     optimizer_d = torch.optim.Adam(D.parameters(), lr=lr, betas=betas)
     criterion_mae = nn.L1Loss()
@@ -122,7 +122,7 @@ def load_model(name):
     G = Generator()
     G.load_state_dict(torch.load(f"weight/G{name}.pth", map_location={"cuda:0": "cpu"}))
     G.eval()
-    return G.to(Device.device)
+    return G.to(DEVICE)
 
 def train_show_img(name, G):
 #     G = load_model(name)

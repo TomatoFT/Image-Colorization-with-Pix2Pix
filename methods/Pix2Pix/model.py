@@ -8,7 +8,6 @@ import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
-from constants.config import Hyperparamater
 from IPython import display
 from matplotlib import pyplot as plt
 from PIL import Image
