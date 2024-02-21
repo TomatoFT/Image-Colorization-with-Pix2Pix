@@ -2,12 +2,14 @@ import os
 import shutil
 
 from sklearn.model_selection import train_test_split
+from config import ROOT_PATH
+
 
 # Replace 'combined_path' with the directory where you saved the combined images
-combined_path = '/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/dataset'
+combined_path = ROOT_PATH + 'dataset/dataset'
 
 # Replace 'output_path' with the directory where you want to save the train, val, and test sets
-output_path = '/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/dataset'
+output_path = ROOT_PATH + 'dataset/dataset'
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_path):

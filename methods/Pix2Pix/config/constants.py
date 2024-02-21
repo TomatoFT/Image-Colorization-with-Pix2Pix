@@ -9,3 +9,6 @@ BATCH_SIZE = 16
 
 DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
 
+ROOT_PATH = './'
+
+KAGGLE_PATH = '/kaggle/working/Image-Colorization-with-Pix2Pix/'

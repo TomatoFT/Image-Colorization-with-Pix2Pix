@@ -9,7 +9,7 @@ import numpy as np
 import tensorflow as tf
 import torch
 import torch.nn as nn
-from config.constants import MEAN, RESIZE, STD
+from config.constants import MEAN, RESIZE, STD, ROOT_PATH
 from IPython import display
 from matplotlib import pyplot as plt
 from PIL import Image
@@ -20,7 +20,7 @@ from tqdm import tqdm
 
 
 def read_path(filepath) -> List[str]:
-    root_path = "/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/dataset"
+    root_path = ROOT_PATH + "/dataset/dataset"
     path = os.path.join(root_path, filepath)
     dataset = []
     for p in glob(path+"/"+"*.jpg"):

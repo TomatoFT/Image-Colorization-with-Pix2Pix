@@ -1,12 +1,14 @@
 import os
 
 from PIL import Image
+from config import ROOT_PATH
+
 
 # Replace 'download_path' with the directory where you saved the downloaded images
-download_path = '/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/original'
+download_path = ROOT_PATH + 'dataset/original'
 
 # Replace 'output_path' with the directory where you want to save the transformed images
-output_path = '/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/old'
+output_path = ROOT_PATH + 'dataset/old'
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_path):

@@ -2,11 +2,13 @@ import os
 
 from PIL import Image
 
+from config import ROOT_PATH
+
 # Replace 'download_path' with the directory where you saved the downloaded images
-download_path = '/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/original'
+download_path = ROOT_PATH + 'dataset/original'
 
 # Replace 'output_path' with the directory where you want to save the combined images
-output_path = '/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/dataset'
+output_path = ROOT_PATH + 'dataset/dataset'
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_path):
@@ -15,7 +17,7 @@ if not os.path.exists(output_path):
 # Loop through each downloaded image
 for i in range(1, 101):  # Assuming you downloaded 100 images
     original_image_path = os.path.join(download_path, f'image_{i}.jpg')
-    bw_image_path = os.path.join('/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/old', f'image_{i}.jpg')
+    bw_image_path = os.path.join(ROOT_PATH + 'dataset/old', f'image_{i}.jpg')
 
     # Open the original and black and white images
     original_image = Image.open(original_image_path)
