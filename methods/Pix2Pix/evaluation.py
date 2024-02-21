@@ -28,7 +28,7 @@ def evaluate(val_dl, name, G):
     with torch.no_grad():
         fig, axes = plt.subplots(6, 5, figsize=(8, 12))
         ax = axes.ravel()
-#         G = load_model(name)
+        # G = load_model(name)
         for input_img, real_img in tqdm(val_dl):
             input_img = input_img.to(DEVICE)
             real_img = real_img.to(DEVICE)

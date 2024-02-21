@@ -38,8 +38,10 @@ val_dl = DataLoader(val_ds, batch_size=BATCH_SIZE,
 
 G = Generator()
 D = Discriminator()
-EPOCH = 30
+EPOCH = 1
 trained_G, trained_D = train_loop(train_dl, G, D, EPOCH)
 
 train_show_img(5, trained_G)
 evaluate(val_dl, 5, trained_G)
+
+print("Done in implementation in the whole Pix2Pix progress")
