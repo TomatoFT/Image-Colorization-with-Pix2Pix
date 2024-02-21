@@ -15,7 +15,7 @@ if not os.path.exists(output_path):
 # Loop through each downloaded image
 for i in range(1, 101):  # Assuming you downloaded 100 images
     original_image_path = os.path.join(download_path, f'image_{i}.jpg')
-    bw_image_path = os.path.join('/content/drive/MyDrive/dataset_imgClr/old', f'image_{i}.jpg')
+    bw_image_path = os.path.join('/kaggle/working/Image-Colorization-with-Pix2Pix/dataset/old', f'image_{i}.jpg')
 
     # Open the original and black and white images
     original_image = Image.open(original_image_path)
