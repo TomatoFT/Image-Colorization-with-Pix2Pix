@@ -1,7 +1,6 @@
 import os
 
 import requests
-
 from config import ROOT_PATH
 
 # Replace 'download_path' with the directory where you want to save the images

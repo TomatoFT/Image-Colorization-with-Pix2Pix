@@ -86,7 +86,7 @@ def show_losses(g, d):
     ax[0].set_title("Generator Loss")
     ax[1].plot(np.arange(len(d)).tolist(), d)
     ax[1].set_title("Discriminator Loss")
-    plt.show()
+    plt.savefig('results/loss.jpg')
 
 
 def train_loop(train_dl, G, D, num_epoch, lr=0.0002, betas=(0.5, 0.999)):
@@ -118,9 +118,10 @@ def train_loop(train_dl, G, D, num_epoch, lr=0.0002, betas=(0.5, 0.999)):
         return G, D
     
 
-def load_model(name):
+def load_model(name, demo=False):
     G = Generator()
-    G.load_state_dict(torch.load(f"weight/G{name}.pth", map_location={"cuda:0": "cpu"}))
+    path = f"weight/G{name}.pth" if not demo else f"methods/Pix2Pix/weight/G{name}.pth"
+    G.load_state_dict(torch.load(path, map_location={"cuda:0": "cpu"}))
     G.eval()
     return G.to(DEVICE)
 

@@ -52,6 +52,6 @@ def evaluate(val_dl, name, G):
                     ax[i+batch_size].set_ylabel("Real Image", c="g")
                     ax[i+batch_size_2].set_ylabel("Generated Image", c="r")
             plt.subplots_adjust(wspace=0, hspace=0)
-            plt.savefig("current_images.jpg")
+            plt.savefig("results/latest_results.jpg")
             break
 

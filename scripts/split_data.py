@@ -1,9 +1,8 @@
 import os
 import shutil
 
-from sklearn.model_selection import train_test_split
 from config import ROOT_PATH
-
+from sklearn.model_selection import train_test_split
 
 # Replace 'combined_path' with the directory where you saved the combined images
 combined_path = ROOT_PATH + 'dataset/dataset'

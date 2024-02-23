@@ -38,7 +38,7 @@ val_dl = DataLoader(val_ds, batch_size=BATCH_SIZE,
 
 G = Generator()
 D = Discriminator()
-EPOCH = 5
+EPOCH = 45
 trained_G, trained_D = train_loop(train_dl, G, D, EPOCH)
 
 train_show_img(5, trained_G)

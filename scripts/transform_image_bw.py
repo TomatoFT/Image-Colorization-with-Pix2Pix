@@ -1,8 +1,7 @@
 import os
 
-from PIL import Image
 from config import ROOT_PATH
-
+from PIL import Image
 
 # Replace 'download_path' with the directory where you saved the downloaded images
 download_path = ROOT_PATH + 'dataset/original'
