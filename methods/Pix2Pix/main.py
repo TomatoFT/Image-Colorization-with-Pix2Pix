@@ -1,24 +1,10 @@
-from glob import glob
-from statistics import mean
-from typing import Dict, List, Tuple
-
-import cv2
-import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow as tf
 import torch
-import torch.nn as nn
 from config.constants import BATCH_SIZE
 from dataloader import Dataset, read_path
 from evaluation import evaluate
-from IPython import display
-from matplotlib import pyplot as plt
 from model import Discriminator, Generator
-from PIL import Image
 from torch.utils.data import DataLoader
-from torchvision import transforms
-from torchvision.utils import save_image
-from tqdm import tqdm
 from train import train_loop, train_show_img
 
 train = read_path("train")
