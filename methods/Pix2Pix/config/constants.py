@@ -1,7 +1,6 @@
-from enum import Enum
-
 import torch
 
+EPOCH = 1
 MEAN = (0.5, 0.5, 0.5,)
 STD = (0.5, 0.5, 0.5,)
 RESIZE = 64

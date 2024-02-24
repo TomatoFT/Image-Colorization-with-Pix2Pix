@@ -5,10 +5,11 @@ from typing import List, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from config.constants import MEAN, RESIZE, ROOT_PATH, STD
 from matplotlib import pyplot as plt
 from PIL import Image
 from torchvision import transforms
+
+from config.constants import MEAN, RESIZE, ROOT_PATH, STD
 
 
 def read_path(filepath) -> List[str]:
@@ -42,7 +43,7 @@ class Dataset(object):
     def _separate(self, img) -> Tuple[Image.Image, Image.Image]:
         # Image.fromarray(np.array(img, dtype=np.uint8))
         img = np.array(img, dtype=np.uint8)
-        h, w, _ = img.shape
+        _, w, _ = img.shape
         w = int(w/2)
         return Image.fromarray(img[:, w:, :]), Image.fromarray(img[:, :w, :])
 
@@ -57,7 +58,7 @@ class Dataset(object):
         return len(self.files)
 
 def show_img_sample(img: torch.Tensor, img1: torch.Tensor):
-    fig, axes = plt.subplots(1, 2, figsize=(15, 8))
+    _, axes = plt.subplots(1, 2, figsize=(15, 8))
     ax = axes.ravel()
     ax[0].imshow(img.permute(1, 2, 0))
     ax[0].set_xticks([])
@@ -68,5 +69,4 @@ def show_img_sample(img: torch.Tensor, img1: torch.Tensor):
     ax[1].set_yticks([])
     ax[1].set_title("label image", c="g")
     plt.subplots_adjust(wspace=0, hspace=0)
-    plt.show()
-
+    plt.savefig("Image_Sample.jpg")
