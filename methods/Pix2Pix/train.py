@@ -8,13 +8,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn as nn
+from config.constants import DEVICE
 from matplotlib import pyplot as plt
+from model import Generator
 from PIL import Image
 from torchvision.utils import save_image
 from tqdm import tqdm
-
-from config.constants import DEVICE
-from model import Generator
 
 
 def train_fn(train_dl, G, D, criterion_bce, criterion_mae, optimizer_g, optimizer_d):

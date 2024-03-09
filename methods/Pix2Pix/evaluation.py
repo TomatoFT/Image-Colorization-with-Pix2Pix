@@ -1,17 +1,18 @@
+import os
 from typing import Dict, List, Tuple
 
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+from config.constants import DEVICE, MEAN, RESIZE, STD
 from matplotlib import pyplot as plt
 from PIL import Image
 from pytorch_fid import fid_score
 from torchvision import transforms
 from torchvision.models import inception_v3
+from torchvision.utils import save_image
 from tqdm import tqdm
-
-from config.constants import DEVICE, MEAN, RESIZE, STD
 
 preprocess = transforms.Compose([
     transforms.Resize((RESIZE, RESIZE)),
@@ -91,39 +92,55 @@ def evaluate(val_dl, name, G):
         real_images = torch.stack(real_images)
         generated_images = torch.stack(generated_images)
 
-        # Calculate FID
-        fid_score = calculate_fid(real_images, generated_images)
-        print(f"FID Score: {fid_score}")
-
-    with torch.no_grad():
         _, axes = plt.subplots(6, 5, figsize=(8, 12))
         ax = axes.ravel()
-        # G = load_model(name)
-        for input_img, real_img in tqdm(val_dl):
-            input_img = input_img.to(DEVICE)
-            real_img = real_img.to(DEVICE)
 
-            fake_img = G(input_img)
-            batch_size = input_img.size()[0]
-            batch_size_2 = batch_size * 2
+    output_dir_original = "../../experiments/original/Pix2Pix/"
+    output_dir_generated = "../../experiments/generated/Pix2Pix/"
 
-            for i in range(batch_size):
-                ax[i].imshow(input_img[i].permute(1, 2, 0))
-                ax[i+batch_size].imshow(de_norm(real_img[i]))
-                ax[i+batch_size_2].imshow(de_norm(fake_img[i]))
-                ax[i].set_xticks([])
-                ax[i].set_yticks([])
-                ax[i+batch_size].set_xticks([])
-                ax[i+batch_size].set_yticks([])
-                ax[i+batch_size_2].set_xticks([])
-                ax[i+batch_size_2].set_yticks([])
-                if i == 0:
-                    ax[i].set_ylabel("Input Image", c="g")
-                    ax[i+batch_size].set_ylabel("Real Image", c="g")
-                    ax[i+batch_size_2].set_ylabel("Generated Image", c="r")
-            plt.subplots_adjust(wspace=0, hspace=0)
-            plt.savefig("results/latest_results.jpg")
-            break
+    # Create directories if they don't exist
+    os.makedirs(output_dir_original, exist_ok=True)
+    os.makedirs(output_dir_generated, exist_ok=True)
+
+    for input_img, real_img in tqdm(val_dl):
+        input_img = input_img.to(DEVICE)
+        real_img = real_img.to(DEVICE)
+
+        fake_img = G(input_img)
+        batch_size = input_img.size()[0]
+        batch_size_2 = batch_size * 2
+
+        for i in range(batch_size):
+            ax[i].imshow(input_img[i].permute(1, 2, 0))
+            ax[i + batch_size].imshow(de_norm(real_img[i]))
+            ax[i + batch_size_2].imshow(de_norm(fake_img[i]))
+
+            # Save original and generated images
+            original_img_path = os.path.join(output_dir_original, f"img_{i * batch_size + i + 1}.png")
+            generated_img_path = os.path.join(output_dir_generated, f"img_{i * batch_size + i + 1}.png")
+
+            # Convert tensors to PIL images and save
+            original_img = Image.fromarray((de_norm(real_img[i]) * 255).astype(np.uint8))
+            generated_img = Image.fromarray((de_norm(fake_img[i]) * 255).astype(np.uint8))
+
+            original_img.save(original_img_path)
+            generated_img.save(generated_img_path)
+
+            ax[i].set_xticks([])
+            ax[i].set_yticks([])
+            ax[i + batch_size].set_xticks([])
+            ax[i + batch_size].set_yticks([])
+            ax[i + batch_size_2].set_xticks([])
+            ax[i + batch_size_2].set_yticks([])
+
+            if i == 0:
+                ax[i].set_ylabel("Input Image", c="g")
+                ax[i + batch_size].set_ylabel("Real Image", c="g")
+                ax[i + batch_size_2].set_ylabel("Generated Image", c="r")
+
+        plt.subplots_adjust(wspace=0, hspace=0)
+        plt.savefig("results/latest_results.jpg")
+        break
 
 # Add this utility function for matrix square root
 def sqrtm(mat, eps=1e-10):

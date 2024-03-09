@@ -1,11 +1,10 @@
 import numpy as np
 import torch
-from torch.utils.data import DataLoader
-
 from config.constants import BATCH_SIZE, EPOCH
 from dataloader import Dataset, read_path
 from evaluation import evaluate
 from model import Discriminator, Generator
+from torch.utils.data import DataLoader
 from train import load_model, train_loop, train_show_img
 
 train = read_path("train")
@@ -27,9 +26,9 @@ G = Generator()
 D = Discriminator()
 # trained_G, trained_D = train_loop(train_dl, G, D, EPOCH)
 
-G = load_model(1)
+G = load_model(45)
 
 # train_show_img(1, trained_G)
-evaluate(val_dl, 1, G)
+evaluate(val_dl, 45, G)
 
 print("Done in implementation in the whole Pix2Pix progress")
