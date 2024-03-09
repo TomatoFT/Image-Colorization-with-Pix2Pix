@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from fid import calculate_fid, load_images
 
 
