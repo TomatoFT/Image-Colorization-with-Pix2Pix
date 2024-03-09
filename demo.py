@@ -22,9 +22,6 @@ def de_norm(img):
     return img_
 
 
-
-# Instantiate your Generator model
-
 def sharpen_image(image):
     # Define a sharpening kernel
     kernel = np.array([[-1, -1, -1],
