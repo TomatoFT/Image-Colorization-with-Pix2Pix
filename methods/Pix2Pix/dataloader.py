@@ -5,14 +5,14 @@ from typing import List, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from config.constants import MEAN, RESIZE, ROOT_PATH, STD
+from config.constants import MEAN, RESIZE, ROOT_PATH, STD, KAGGLE_PATH
 from matplotlib import pyplot as plt
 from PIL import Image
 from torchvision import transforms
 
 
 def read_path(filepath) -> List[str]:
-    root_path = ROOT_PATH + "/dataset"
+    root_path = KAGGLE_PATH + "/dataset"
     path = os.path.join(root_path, filepath)
     dataset = []
     for p in glob(path+"/"+"*.jpg"):

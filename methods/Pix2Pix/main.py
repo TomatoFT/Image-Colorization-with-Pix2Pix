@@ -24,7 +24,7 @@ val_dl = DataLoader(val_ds, batch_size=BATCH_SIZE,
 
 G = Generator()
 D = Discriminator()
-# trained_G, trained_D = train_loop(train_dl, G, D, EPOCH)
+trained_G, trained_D = train_loop(train_dl, G, D, EPOCH)
 
 G = load_model(45)
 
