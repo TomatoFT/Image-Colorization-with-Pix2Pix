@@ -5,10 +5,10 @@ from config import ROOT_PATH
 from sklearn.model_selection import train_test_split
 
 # Replace 'combined_path' with the directory where you saved the combined images
-combined_path = ROOT_PATH + 'dataset/dataset'
+combined_path = ROOT_PATH + 'dataset'
 
 # Replace 'output_path' with the directory where you want to save the train, val, and test sets
-output_path = ROOT_PATH + 'dataset/dataset'
+output_path = ROOT_PATH + 'dataset'
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_path):

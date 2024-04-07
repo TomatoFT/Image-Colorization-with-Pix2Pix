@@ -12,7 +12,7 @@ from torchvision import transforms
 
 
 def read_path(filepath) -> List[str]:
-    root_path = ROOT_PATH + "/dataset/dataset"
+    root_path = ROOT_PATH + "/dataset"
     path = os.path.join(root_path, filepath)
     dataset = []
     for p in glob(path+"/"+"*.jpg"):

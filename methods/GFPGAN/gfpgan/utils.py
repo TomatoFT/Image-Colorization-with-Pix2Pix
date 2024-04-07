@@ -3,7 +3,7 @@ import os
 import cv2
 import torch
 from basicsr.utils import img2tensor, tensor2img
-from basicsr.utils.download_util import load_file_from_url
+# from basicsr.utils.download_util import load_file_from_url
 from facexlib.utils.face_restoration_helper import FaceRestoreHelper
 from gfpgan.archs.gfpgan_bilinear_arch import GFPGANBilinear
 from gfpgan.archs.gfpganv1_arch import GFPGANv1
@@ -86,9 +86,9 @@ class GFPGANer():
             device=self.device,
             model_rootpath='gfpgan/weights')
 
-        if model_path.startswith('https://'):
-            model_path = load_file_from_url(
-                url=model_path, model_dir=os.path.join(ROOT_DIR, 'gfpgan/weights'), progress=True, file_name=None)
+        # if model_path.startswith('https://'):
+        #     model_path = load_file_from_url(
+        #         url=model_path, model_dir=os.path.join(ROOT_DIR, 'gfpgan/weights'), progress=True, file_name=None)
         loadnet = torch.load(model_path)
         if 'params_ema' in loadnet:
             keyname = 'params_ema'
@@ -123,6 +123,7 @@ class GFPGANer():
 
             try:
                 output = self.gfpgan(cropped_face_t, return_rgb=False, weight=weight)[0]
+                print(output)
                 # convert to image
                 restored_face = tensor2img(output.squeeze(0), rgb2bgr=True, min_max=(-1, 1))
             except RuntimeError as error:
