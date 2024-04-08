@@ -67,8 +67,8 @@ def saving_logs(result):
 
 def saving_model(D, G, e):
     os.makedirs("weight", exist_ok=True)
-    torch.save(G.state_dict(), f"weight/G{str(e+1)}.pth")
-    torch.save(D.state_dict(), f"weight/D{str(e+1)}.pth")
+    torch.save(G.state_dict(), "weight/G.pth")
+    torch.save(D.state_dict(), "weight/D.pth")
 
 def show_losses(g, d):
     fig, axes = plt.subplots(1, 2, figsize=(14,6))

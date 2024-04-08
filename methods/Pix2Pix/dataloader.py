@@ -5,7 +5,7 @@ from typing import List, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from config.constants import MEAN, RESIZE, ROOT_PATH, STD, KAGGLE_PATH
+from config.constants import KAGGLE_PATH, MEAN, RESIZE, ROOT_PATH, STD
 from matplotlib import pyplot as plt
 from PIL import Image
 from torchvision import transforms
