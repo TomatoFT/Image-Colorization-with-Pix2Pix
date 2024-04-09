@@ -52,7 +52,9 @@ def train_fn(train_dl, G, D, criterion_bce, criterion_mae, optimizer_g, optimize
         optimizer_d.zero_grad()
         loss_d.backward()
         optimizer_d.step()
-    return mean(total_loss_g), mean(total_loss_d), fake_img.detach().cpu()
+        fake_img_res = fake_img.detach().cpu() if DEVICE == "cpu" else fake_img.detach().cuda()
+        
+    return mean(total_loss_g), mean(total_loss_d), fake_img_res
 
 
 def saving_img(fake_img, e):
