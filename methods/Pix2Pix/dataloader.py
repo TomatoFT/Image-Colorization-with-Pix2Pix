@@ -5,14 +5,15 @@ from typing import List, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from config.constants import KAGGLE_PATH, MEAN, RESIZE, ROOT_PATH, STD
 from matplotlib import pyplot as plt
 from PIL import Image
 from torchvision import transforms
 
+from config.constants import KAGGLE_PATH, MEAN, RESIZE, ROOT_PATH, STD
+
 
 def read_path(filepath) -> List[str]:
-    root_path = KAGGLE_PATH + "/dataset"
+    root_path = ROOT_PATH + "/dataset"
     path = os.path.join(root_path, filepath)
     dataset = []
     for p in glob(path+"/"+"*.jpg"):
@@ -44,7 +45,7 @@ class Dataset(object):
         img = np.array(img, dtype=np.uint8)
         _, w, _ = img.shape
         w = int(w/2)
-        return Image.fromarray(img[:, w:, :]), Image.fromarray(img[:, :w, :])
+        return Image.fromarray(img[:, :w, :]), Image.fromarray(img[:, w:, :])
 
     def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
         img = Image.open(self.files[idx])
