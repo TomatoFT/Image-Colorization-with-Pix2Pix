@@ -1,11 +1,11 @@
 import argparse
-import cv2
 import glob
-import numpy as np
 import os
+
+import cv2
+import numpy as np
 import torch
 from basicsr.utils import imwrite
-
 from gfpgan import GFPGANer
 
 

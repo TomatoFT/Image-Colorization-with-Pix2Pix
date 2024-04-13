@@ -1,7 +1,9 @@
 import math
 import random
+
 import torch
-from basicsr.archs.stylegan2_arch import (ConvLayer, EqualConv2d, EqualLinear, ResBlock, ScaledLeakyReLU,
+from basicsr.archs.stylegan2_arch import (ConvLayer, EqualConv2d, EqualLinear,
+                                          ResBlock, ScaledLeakyReLU,
                                           StyleGAN2Generator)
 from basicsr.ops.fused_act import FusedLeakyReLU
 from basicsr.utils.registry import ARCH_REGISTRY

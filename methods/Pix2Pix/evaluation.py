@@ -5,14 +5,13 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+from config.constants import DEVICE, MEAN, RESIZE, STD
 from matplotlib import pyplot as plt
 from PIL import Image
 from torchvision import transforms
 from torchvision.models import inception_v3
 from torchvision.utils import save_image
 from tqdm import tqdm
-
-from config.constants import DEVICE, MEAN, RESIZE, STD
 
 preprocess = transforms.Compose([
     transforms.Resize((RESIZE, RESIZE)),
@@ -30,7 +29,6 @@ def de_norm(img):
 def evaluate(val_dl, name, G):
     with torch.no_grad():
         real_images, generated_images = [], []
-        print(val_dl)
         for input_img, real_img in tqdm(val_dl):
             input_img = input_img.to(DEVICE)
             real_img = real_img.to(DEVICE)

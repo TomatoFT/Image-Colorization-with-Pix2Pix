@@ -9,12 +9,12 @@ import os
 os.system('python setup.py develop')
 os.system('pip install realesrgan')
 
-import cv2
 import shutil
 import tempfile
+
+import cv2
 import torch
 from basicsr.archs.srvgg_arch import SRVGGNetCompact
-
 from gfpgan import GFPGANer
 
 try:
