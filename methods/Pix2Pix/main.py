@@ -2,12 +2,11 @@ import random
 
 import numpy as np
 import torch
-from torch.utils.data import DataLoader
-
 from config.constants import BATCH_SIZE, EPOCH
 from dataloader import Dataset, read_path
 from evaluation import evaluate
 from model import Discriminator, Generator
+from torch.utils.data import DataLoader
 from train import load_model, train_loop, train_show_img
 
 train = read_path("train")

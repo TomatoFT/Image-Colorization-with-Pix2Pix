@@ -80,10 +80,9 @@ def get_requirements(filename='requirements.txt'):
 
 
 if __name__ == '__main__':
-    write_version_py()
     setup(
         name='gfpgan',
-        version=get_version(),
+        version='1.3.8',
         description='GFPGAN aims at developing Practical Algorithms for Real-world Face Restoration',
         long_description=readme(),
         long_description_content_type='text/markdown',
