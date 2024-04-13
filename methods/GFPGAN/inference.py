@@ -1,72 +1,3 @@
-# def evaluate(val_dl, name, G):
-#     with torch.no_grad():
-#         real_images, generated_images = [], []
-#         for input_img, real_img in tqdm(val_dl):
-#             input_img = input_img.to(DEVICE)
-#             real_img = real_img.to(DEVICE)
-
-#             fake_img = G(input_img)
-            
-#             batch_size = input_img.size()[0]
-#             batch_size_2 = batch_size * 2
-
-#             for i in range(batch_size):
-#                 real_images.append(torch.tensor(de_norm(real_img[i])))
-#                 generated_images.append(torch.tensor(de_norm(fake_img[i])))
-
-#         real_images = torch.stack(real_images)
-#         generated_images = torch.stack(generated_images)
-
-#         _, axes = plt.subplots(6, 5, figsize=(8, 12))
-#         ax = axes.ravel()
-
-#     output_dir_original = "../../experiments/original/Pix2Pix/"
-#     output_dir_generated = "../../experiments/generated/Pix2Pix/"
-
-#     # Create directories if they don't exist
-#     os.makedirs(output_dir_original, exist_ok=True)
-#     os.makedirs(output_dir_generated, exist_ok=True)
-
-#     for input_img, real_img in tqdm(val_dl):
-#         input_img = input_img.to(DEVICE)
-#         real_img = real_img.to(DEVICE)
-
-#         fake_img = G(input_img)
-#         batch_size = input_img.size()[0]
-#         batch_size_2 = batch_size * 2
-
-#         for i in range(batch_size):
-#             ax[i].imshow(input_img[i].permute(1, 2, 0))
-#             ax[i + batch_size].imshow(de_norm(real_img[i]))
-#             ax[i + batch_size_2].imshow(de_norm(fake_img[i]))
-
-#             # Save original and generated images
-#             original_img_path = os.path.join(output_dir_original, f"img_{i * batch_size + i + 1}.png")
-#             generated_img_path = os.path.join(output_dir_generated, f"img_{i * batch_size + i + 1}.png")
-
-#             # Convert tensors to PIL images and save
-#             original_img = Image.fromarray((de_norm(real_img[i]) * 255).astype(np.uint8))
-#             generated_img = Image.fromarray((de_norm(fake_img[i]) * 255).astype(np.uint8))
-
-#             original_img.save(original_img_path)
-#             generated_img.save(generated_img_path)
-
-#             ax[i].set_xticks([])
-#             ax[i].set_yticks([])
-#             ax[i + batch_size].set_xticks([])
-#             ax[i + batch_size].set_yticks([])
-#             ax[i + batch_size_2].set_xticks([])
-#             ax[i + batch_size_2].set_yticks([])
-
-#             if i == 0:
-#                 ax[i].set_ylabel("Input Image", c="g")
-#                 ax[i + batch_size].set_ylabel("Real Image", c="g")
-#                 ax[i + batch_size_2].set_ylabel("Generated Image", c="r")
-
-#         plt.subplots_adjust(wspace=0, hspace=0)
-#         plt.savefig("results/latest_results.jpg")
-#         break
-
 import glob
 import os
 
@@ -90,7 +21,7 @@ def main():
     suffix =None
     ext='auto',
     weight = ''
-    aligned = False
+    aligned = True
     only_center_face = False
     # ------------------------ input_path & output_path ------------------------
     if input_path.endswith('/'):
@@ -175,6 +106,7 @@ def main():
         print(f'Processing {img_name} ...')
         basename, ext = os.path.splitext(img_name)
         input_img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+        print(input_img)
 
         # restore faces and background if necessary
         cropped_faces, restored_faces, restored_img = restorer.enhance(
@@ -216,3 +148,73 @@ def main():
     print(f'Results are in the [{output_path}] folder.')
 
 main()
+
+
+def evaluate(val_dl, real_img_folder, G):
+    with torch.no_grad():
+        real_images, generated_images = [], []
+        for input_img, real_img in tqdm(val_dl):
+            input_img = input_img.to(DEVICE)
+            real_img = real_img.to(DEVICE)
+
+            fake_img = G(input_img)
+            
+            batch_size = input_img.size()[0]
+            batch_size_2 = batch_size * 2
+
+            for i in range(batch_size):
+                real_images.append(torch.tensor(de_norm(real_img[i])))
+                generated_images.append(torch.tensor(de_norm(fake_img[i])))
+
+        real_images = torch.stack(real_images)
+        generated_images = torch.stack(generated_images)
+
+        _, axes = plt.subplots(6, 5, figsize=(8, 12))
+        ax = axes.ravel()
+
+    output_dir_original = "../../experiments/original/Pix2Pix/"
+    output_dir_generated = "../../experiments/generated/Pix2Pix/"
+
+    # Create directories if they don't exist
+    os.makedirs(output_dir_original, exist_ok=True)
+    os.makedirs(output_dir_generated, exist_ok=True)
+
+    for input_img, real_img in tqdm(val_dl):
+        input_img = input_img.to(DEVICE)
+        real_img = real_img.to(DEVICE)
+
+        fake_img = G(input_img)
+        batch_size = input_img.size()[0]
+        batch_size_2 = batch_size * 2
+
+        for i in range(batch_size):
+            ax[i].imshow(input_img[i].permute(1, 2, 0))
+            ax[i + batch_size].imshow(de_norm(real_img[i]))
+            ax[i + batch_size_2].imshow(de_norm(fake_img[i]))
+
+            # Save original and generated images
+            original_img_path = os.path.join(output_dir_original, f"img_{i * batch_size + i + 1}.png")
+            generated_img_path = os.path.join(output_dir_generated, f"img_{i * batch_size + i + 1}.png")
+
+            # Convert tensors to PIL images and save
+            original_img = Image.fromarray((de_norm(real_img[i]) * 255).astype(np.uint8))
+            generated_img = Image.fromarray((de_norm(fake_img[i]) * 255).astype(np.uint8))
+
+            original_img.save(original_img_path)
+            generated_img.save(generated_img_path)
+
+            ax[i].set_xticks([])
+            ax[i].set_yticks([])
+            ax[i + batch_size].set_xticks([])
+            ax[i + batch_size].set_yticks([])
+            ax[i + batch_size_2].set_xticks([])
+            ax[i + batch_size_2].set_yticks([])
+
+            if i == 0:
+                ax[i].set_ylabel("Input Image", c="g")
+                ax[i + batch_size].set_ylabel("Real Image", c="g")
+                ax[i + batch_size_2].set_ylabel("Generated Image", c="r")
+
+        plt.subplots_adjust(wspace=0, hspace=0)
+        plt.savefig("results/latest_results.jpg")
+        break
