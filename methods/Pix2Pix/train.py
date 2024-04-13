@@ -8,12 +8,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn as nn
-from config.constants import DEVICE
 from matplotlib import pyplot as plt
-from model import Generator
 from PIL import Image
 from torchvision.utils import save_image
 from tqdm import tqdm
+
+from config.constants import DEVICE
+from model import Generator
 
 
 def train_fn(train_dl, G, D, criterion_bce, criterion_mae, optimizer_g, optimizer_d):
@@ -52,7 +53,9 @@ def train_fn(train_dl, G, D, criterion_bce, criterion_mae, optimizer_g, optimize
         optimizer_d.zero_grad()
         loss_d.backward()
         optimizer_d.step()
-    return mean(total_loss_g), mean(total_loss_d), fake_img.detach().cpu()
+        fake_img_res = fake_img.detach().cpu() if DEVICE == "cpu" else fake_img.detach().cuda()
+        
+    return mean(total_loss_g), mean(total_loss_d), fake_img_res
 
 
 def saving_img(fake_img, e):
@@ -67,8 +70,8 @@ def saving_logs(result):
 
 def saving_model(D, G, e):
     os.makedirs("weight", exist_ok=True)
-    torch.save(G.state_dict(), f"weight/G{str(e+1)}.pth")
-    torch.save(D.state_dict(), f"weight/D{str(e+1)}.pth")
+    torch.save(G.state_dict(), "weight/G.pth")
+    torch.save(D.state_dict(), "weight/D.pth")
 
 def show_losses(g, d):
     fig, axes = plt.subplots(1, 2, figsize=(14,6))

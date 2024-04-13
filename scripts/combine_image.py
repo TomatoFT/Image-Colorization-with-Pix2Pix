@@ -7,7 +7,7 @@ from PIL import Image
 download_path = ROOT_PATH + 'dataset/original'
 
 # Replace 'output_path' with the directory where you want to save the combined images
-output_path = ROOT_PATH + 'dataset/dataset'
+output_path = ROOT_PATH + 'dataset'
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_path):

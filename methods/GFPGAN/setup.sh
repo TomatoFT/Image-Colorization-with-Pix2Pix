@@ -1,6 +1,6 @@
 # Install basicsr - https://github.com/xinntao/BasicSR
 # We use BasicSR for both training and inference
-pip install basicsr
+BASICSR_EXT=True pip install basicsr
 
 # Install facexlib - https://github.com/xinntao/facexlib
 # We use face detection and face restoration helper in the facexlib package
