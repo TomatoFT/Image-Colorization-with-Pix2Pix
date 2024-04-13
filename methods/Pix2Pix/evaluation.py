@@ -27,51 +27,6 @@ def de_norm(img):
     return img_
 
 
-# def calculate_fid(images_real, images_generated, G):
-    # print(images_real.size())
-    # print(images_generated.size())
-    # # Function to calculate the generator output
-    # def calculate_generator_output(images):
-    #     outputs = []
-    #     for batch in images:
-    #         with torch.no_grad():
-    #             output = G(batch)
-    #         outputs.append(output)
-    #     outputs = torch.cat(outputs, dim=0)
-    #     return outputs
-
-    # # Calculate generator outputs for real and generated images
-    # generator_output_real = calculate_generator_output(images_real)
-    # generator_output_generated = calculate_generator_output(images_generated)
-
-    # # Calculate mean and covariance for generator outputs
-    # mu_real, sigma_real = generator_output_real.mean(dim=0), torch_cov(generator_output_real, rowvar=False)
-    # mu_generated, sigma_generated = generator_output_generated.mean(dim=0), torch_cov(generator_output_generated, rowvar=False)
-
-    # # Calculate Frechet Distance
-    # diff = mu_real - mu_generated
-    # covmean, _ = sqrtm(sigma_real @ sigma_generated, eps=1e-6)
-    # if not np.isfinite(covmean).all():
-    #     covmean = np.identity(covmean.shape[0])
-    # fid = (diff @ diff + torch.trace(sigma_real + sigma_generated - 2 * covmean)).real
-
-    # return fid.item()
-
-# def calculate_fid(images_real, images_generated):
-#     # Use Inception-v3 model from torchvision
-#     model = inception_v3(pretrained=True, transform_input=False)
-#     model.eval()
-
-#     # Forward pass for real and generated images
-#     features_real = model(images_real)
-#     features_generated = model(images_generated)
-
-#     # Calculate FID using pytorch-fid library
-#     fid_value = fid_score(features_real, features_generated)
-    
-#     return fid_value
-
-
 def evaluate(val_dl, name, G):
     with torch.no_grad():
         real_images, generated_images = [], []
