@@ -1,5 +1,6 @@
 import cv2
 from facexlib.utils.face_restoration_helper import FaceRestoreHelper
+
 from gfpgan.archs.gfpganv1_arch import GFPGANv1
 from gfpgan.archs.gfpganv1_clean_arch import GFPGANv1Clean
 from gfpgan.utils import GFPGANer

@@ -1,7 +1,7 @@
 import argparse
 import math
-
 import torch
+
 from gfpgan.archs.gfpganv1_clean_arch import GFPGANv1Clean
 
 

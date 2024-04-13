@@ -1,5 +1,6 @@
 import pytest
 import yaml
+
 from gfpgan.data.ffhq_degradation_dataset import FFHQDegradationDataset
 
 

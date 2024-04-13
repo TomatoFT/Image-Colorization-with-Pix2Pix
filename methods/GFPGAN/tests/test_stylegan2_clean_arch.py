@@ -1,4 +1,5 @@
 import torch
+
 from gfpgan.archs.stylegan2_clean_arch import StyleGAN2GeneratorClean
 
 

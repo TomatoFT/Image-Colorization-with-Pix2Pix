@@ -1,4 +1,5 @@
 import torch
+
 from gfpgan.archs.arcface_arch import BasicBlock, Bottleneck, ResNetArcFace
 
 

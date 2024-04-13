@@ -1,7 +1,6 @@
 import importlib
-from os import path as osp
-
 from basicsr.utils import scandir
+from os import path as osp
 
 # automatically scan and import arch modules for registry
 # scan all the files that end with '_arch.py' under the archs folder

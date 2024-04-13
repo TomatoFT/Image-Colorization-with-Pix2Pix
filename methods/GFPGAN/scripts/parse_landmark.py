@@ -1,11 +1,10 @@
-import json
-import os
-from collections import OrderedDict
-
 import cv2
+import json
 import numpy as np
+import os
 import torch
 from basicsr.utils import FileClient, imfrombytes
+from collections import OrderedDict
 
 # ---------------------------- This script is used to parse facial landmarks ------------------------------------- #
 # Configurations
