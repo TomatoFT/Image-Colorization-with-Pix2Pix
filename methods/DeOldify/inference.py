@@ -3,7 +3,7 @@ import os
 from deoldify.visualize import get_image_colorizer
 
 
-def get_the_image_restoration(choice, path):
+def get_the_image_restoration(choice, path, output):
     warnings.filterwarnings("ignore", category=UserWarning, message=".*?Your .*? set is empty.*?")
     image_path = ''
     colorizer = get_image_colorizer(artistic=True)
@@ -23,7 +23,8 @@ def get_the_image_restoration(choice, path):
 
         if path is not None and path !='':
             image_path = colorizer.plot_transformed_image(url=path,
-                                                          render_factor=render_factor, 
+                                                          render_factor=render_factor,
+                                                          results_dir=output,
                                                           compare=True)
         else:
             print('Provide an image url and try again.')
@@ -35,7 +36,7 @@ def get_the_image_restoration(choice, path):
 
 if __name__ == "__main__":
     input_img_folder='/content/drive/MyDrive/experiment_dataset/input',
-    real_img_folder='/content/drive/MyDrive/experiment_dataset/real',
+    real_img_folder='/content/drive/MyDrive/experiment_dataset/original',
     generated_img_folder='/content/drive/MyDrive/experiment_dataset/generated'
     
 
@@ -44,6 +45,6 @@ if __name__ == "__main__":
     # generated_images = os.listdir(generated_img_folder)
 
     for img in input_images:
-        _ = get_the_image_restoration(choice="Uploaded", path=img)
+        _ = get_the_image_restoration(choice="Uploaded", path=img, output=generated_img_folder)
         print("Done img ", img)
 
