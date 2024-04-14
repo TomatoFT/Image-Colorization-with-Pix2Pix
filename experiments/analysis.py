@@ -19,8 +19,8 @@ class MethodsEvaluation:
                 'original': 'experiment_dataset/original'
             },             
             "Deoldify": {
-                'generated': 'experiment_de/generated',
-                'original': 'experiment_de/original'
+                'generated': 'experiment_dataset/deoldify',
+                'original': 'experiment_dataset/original'
             }
         }
         self.generated_path = self.folder[self.name]["generated"]
