@@ -9,8 +9,18 @@ class MethodsEvaluation:
     batch_size: int
 
     def __post_init__(self):
-        self.generated_path = f'generated/{self.name}'
-        self.real_path = f'original/{self.name}'
+        self.folder = {
+            "Pix2Pix": {
+                'generated': 'generated/Pix2Pix',
+                'original': 'original/Pix2Pix'
+            },
+            "GFPGAN": {
+                'generated': 'experiment_dataset/generated',
+                'original': 'experiment_dataset/original'
+            }
+        }
+        self.generated_path = self.folder[self.name]["generated"]
+        self.real_path = self.folder[self.name]["original"]
         
         self.generated_images = load_images(self.generated_path)
         self.real_images = load_images(self.real_path)
