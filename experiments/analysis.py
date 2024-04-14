@@ -17,6 +17,10 @@ class MethodsEvaluation:
             "GFPGAN": {
                 'generated': 'experiment_dataset/generated',
                 'original': 'experiment_dataset/original'
+            },             
+            "Deoldify": {
+                'generated': 'experiment_de/generated',
+                'original': 'experiment_de/original'
             }
         }
         self.generated_path = self.folder[self.name]["generated"]
@@ -35,5 +39,5 @@ class MethodsEvaluation:
         return fid_value
 
 if __name__ == "__main__":
-    evaluation_instance = MethodsEvaluation(name="Pix2Pix", batch_size=64)
+    evaluation_instance = MethodsEvaluation(name="Deoldify", batch_size=64)
     print("FID score of method is ", evaluation_instance.get_the_fid_score())

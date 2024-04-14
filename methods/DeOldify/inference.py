@@ -1,5 +1,5 @@
 import warnings
-
+import os
 from deoldify.visualize import get_image_colorizer
 
 
@@ -32,3 +32,14 @@ def get_the_image_restoration(choice, path):
         print('INVALID CHOICE')
 
     print('You can see the result image in ', image_path)
+
+if __name__ == "__main__":
+    input_img_folder = ""
+    real_img_folder = ""
+    generated_img_folder = ""
+
+
+    input_images = os.listdir(input_img_folder)
+    real_images = os.listdir(real_img_folder)
+    # generated_images = os.listdir(generated_img_folder)
+
