@@ -151,7 +151,7 @@ def restore_the_image_gfpgan(
 def evaluate(input_img_folder,
              real_img_folder, 
              generated_img_folder, 
-             G):
+             ):
     
     input_images = os.listdir(input_img_folder)
     real_images = os.listdir(real_img_folder)
