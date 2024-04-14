@@ -164,7 +164,7 @@ class ModelImageVisualizer:
     def _save_result_image(self, source_path: Path, image: Image, results_dir = None) -> Path:
         if results_dir is None:
             results_dir = Path(self.results_dir)
-        result_path = results_dir / source_path.name
+        result_path = results_dir + '/' + source_path.name
         image.save(result_path)
         return result_path
 

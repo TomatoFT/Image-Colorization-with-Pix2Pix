@@ -22,7 +22,7 @@ def get_the_image_restoration(choice, path, output):
         watermarked = False #@param {type:"boolean"}
 
         if path is not None and path !='':
-            image_path = colorizer.plot_transformed_image(url=path,
+            image_path = colorizer.plot_transformed_image(path=path,
                                                           render_factor=render_factor,
                                                           results_dir=output,
                                                           compare=True)
@@ -35,8 +35,8 @@ def get_the_image_restoration(choice, path, output):
     print('You can see the result image in ', image_path)
 
 if __name__ == "__main__":
-    input_img_folder='/content/drive/MyDrive/experiment_dataset/input',
-    real_img_folder='/content/drive/MyDrive/experiment_dataset/original',
+    input_img_folder='/content/drive/MyDrive/experiment_dataset/input'
+    real_img_folder='/content/drive/MyDrive/experiment_dataset/original'
     generated_img_folder='/content/drive/MyDrive/experiment_dataset/generated'
     
 
@@ -45,6 +45,7 @@ if __name__ == "__main__":
     # generated_images = os.listdir(generated_img_folder)
 
     for img in input_images:
-        _ = get_the_image_restoration(choice="Uploaded", path=img, output=generated_img_folder)
+        file = input_img_folder + '/' + img
+        _ = get_the_image_restoration(choice="Uploaded", path=file, output=generated_img_folder)
         print("Done img ", img)
 
