@@ -206,6 +206,7 @@ def evaluate(input_img_folder,
         break
 
 if __name__ == "__main__":
-    evaluate(input_img_folder='',
-             real_img_folder=''
+    evaluate(input_img_folder='/content/drive/MyDrive/experiment_dataset/input',
+             real_img_folder='/content/drive/MyDrive/experiment_dataset/real',
+             generated_img_folder='/content/drive/MyDrive/experiment_dataset/generated'
              )
