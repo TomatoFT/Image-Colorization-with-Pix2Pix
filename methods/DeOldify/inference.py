@@ -1,5 +1,6 @@
-import warnings
 import os
+import warnings
+
 from deoldify.visualize import get_image_colorizer
 
 
