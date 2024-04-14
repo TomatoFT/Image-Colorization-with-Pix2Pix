@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     with open('report.csv', 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['Methods', 'FID', 'Inception_Score_Mean', 'Inception_Score_Std'])
+        writer.writerow(['Methods', 'FID'])
 
         for name in names:
             evaluation_instance = MethodsEvaluation(name=name, batch_size=64)
