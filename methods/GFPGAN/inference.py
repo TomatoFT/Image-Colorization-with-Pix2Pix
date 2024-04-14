@@ -6,23 +6,23 @@ import numpy as np
 import torch
 from basicsr.utils import imwrite
 from gfpgan import GFPGANer
+from matplotlib import pyplot as plt
+from PIL import Image
 
 
-def main():
-    """Inference demo for GFPGAN (for users).
-    """
-    input_path = 'methods/GFPGAN/inputs/whole_imgs'
-    output_path='results/image_oke.png'
-    # we use version to select models, which is more user-friendly
-    version = '1'
-    upscale = 2
-    bg_upsampler = 'realesrgan'
-    bg_tile=400,
-    suffix =None
-    ext='auto',
-    weight = ''
-    aligned = True
-    only_center_face = False
+def restore_the_image_gfpgan(
+                            input_path: str, 
+                            output_path: str,
+                            version: int=1,
+                            upscale: int=2,
+                            bg_upsampler: str= 'realesrgan',
+                            bg_tile :int=400,
+                            suffix:bool=None,
+                            ext:str='auto',
+                            weight:str = '',
+                            aligned:bool = True,
+                            only_center_face:bool = False
+                            ):
     # ------------------------ input_path & output_path ------------------------
     if input_path.endswith('/'):
         input_path = input_path[:-1]
@@ -147,58 +147,44 @@ def main():
 
     print(f'Results are in the [{output_path}] folder.')
 
-main()
 
-
-def evaluate(val_dl, real_img_folder, G):
+def evaluate(input_img_folder,
+             real_img_folder, 
+             generated_img_folder, 
+             G):
+    
+    input_images = os.listdir(input_img_folder)
+    real_images = os.listdir(real_img_folder)
+    generated_images = os.listdir(generated_img_folder)
+    
     with torch.no_grad():
-        real_images, generated_images = [], []
-        for input_img, real_img in tqdm(val_dl):
-            input_img = input_img.to(DEVICE)
-            real_img = real_img.to(DEVICE)
-
-            fake_img = G(input_img)
-            
-            batch_size = input_img.size()[0]
-            batch_size_2 = batch_size * 2
-
-            for i in range(batch_size):
-                real_images.append(torch.tensor(de_norm(real_img[i])))
-                generated_images.append(torch.tensor(de_norm(fake_img[i])))
-
-        real_images = torch.stack(real_images)
-        generated_images = torch.stack(generated_images)
+        restore_the_image_gfpgan(input_path=input_img_folder, 
+                                 output_path=generated_img_folder)
 
         _, axes = plt.subplots(6, 5, figsize=(8, 12))
         ax = axes.ravel()
 
-    output_dir_original = "../../experiments/original/Pix2Pix/"
-    output_dir_generated = "../../experiments/generated/Pix2Pix/"
-
     # Create directories if they don't exist
-    os.makedirs(output_dir_original, exist_ok=True)
-    os.makedirs(output_dir_generated, exist_ok=True)
+    os.makedirs(generated_img_folder, exist_ok=True)
+    os.makedirs(real_img_folder, exist_ok=True)
 
-    for input_img, real_img in tqdm(val_dl):
-        input_img = input_img.to(DEVICE)
-        real_img = real_img.to(DEVICE)
-
-        fake_img = G(input_img)
+    for input_img, real_img, generated_img in zip(input_images, real_images, generated_images):
+        fake_img = generated_img
         batch_size = input_img.size()[0]
         batch_size_2 = batch_size * 2
 
         for i in range(batch_size):
             ax[i].imshow(input_img[i].permute(1, 2, 0))
-            ax[i + batch_size].imshow(de_norm(real_img[i]))
-            ax[i + batch_size_2].imshow(de_norm(fake_img[i]))
+            ax[i + batch_size].imshow(real_img[i])
+            ax[i + batch_size_2].imshow(generated_img[i])
 
             # Save original and generated images
-            original_img_path = os.path.join(output_dir_original, f"img_{i * batch_size + i + 1}.png")
-            generated_img_path = os.path.join(output_dir_generated, f"img_{i * batch_size + i + 1}.png")
+            original_img_path = os.path.join(real_img_folder, f"img_{i * batch_size + i + 1}.png")
+            generated_img_path = os.path.join(generated_img_folder, f"img_{i * batch_size + i + 1}.png")
 
             # Convert tensors to PIL images and save
-            original_img = Image.fromarray((de_norm(real_img[i]) * 255).astype(np.uint8))
-            generated_img = Image.fromarray((de_norm(fake_img[i]) * 255).astype(np.uint8))
+            original_img = Image.fromarray(real_img[i] * 255).astype(np.uint8)
+            generated_img = Image.fromarray(generated_img[i] * 255).astype(np.uint8)
 
             original_img.save(original_img_path)
             generated_img.save(generated_img_path)
@@ -218,3 +204,8 @@ def evaluate(val_dl, real_img_folder, G):
         plt.subplots_adjust(wspace=0, hspace=0)
         plt.savefig("results/latest_results.jpg")
         break
+
+if __name__ == "__main__":
+    evaluate(input_img_folder='',
+             real_img_folder=''
+             )
