@@ -34,12 +34,16 @@ def get_the_image_restoration(choice, path):
     print('You can see the result image in ', image_path)
 
 if __name__ == "__main__":
-    input_img_folder = ""
-    real_img_folder = ""
-    generated_img_folder = ""
-
+    input_img_folder='/content/drive/MyDrive/experiment_dataset/input',
+    real_img_folder='/content/drive/MyDrive/experiment_dataset/real',
+    generated_img_folder='/content/drive/MyDrive/experiment_dataset/generated'
+    
 
     input_images = os.listdir(input_img_folder)
     real_images = os.listdir(real_img_folder)
     # generated_images = os.listdir(generated_img_folder)
+
+    for img in input_images:
+        _ = get_the_image_restoration(choice="Uploaded", path=img)
+        print("Done img ", img)
 
