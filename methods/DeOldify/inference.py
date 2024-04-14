@@ -1,18 +1,34 @@
 import warnings
 
-import fastai
-from deoldify.visualize import *
+from deoldify.visualize import get_image_colorizer
 
-warnings.filterwarnings("ignore", category=UserWarning, message=".*?Your .*? set is empty.*?")
 
-colorizer = get_image_colorizer(artistic=True)
+def get_the_image_restoration(choice, path):
+    warnings.filterwarnings("ignore", category=UserWarning, message=".*?Your .*? set is empty.*?")
+    image_path = ''
+    colorizer = get_image_colorizer(artistic=True)
+    if choice == "URL":
+        render_factor = 35  #@param {type: "slider", min: 7, max: 40}
+        watermarked = False #@param {type:"boolean"}
 
-source_url = 'https://img.freepik.com/free-photo/grayscale-woman-headshot-serene-face-expression-portrait_53876-14465.jpg?w=900&t=st=1711731129~exp=1711731729~hmac=3474a14d05988097d83fc94d4fc86c248a6de2d64a0c4a235c9981ffaaf2ad87' #@param {type:"string"}
-render_factor = 35  #@param {type: "slider", min: 7, max: 40}
-watermarked = True #@param {type:"boolean"}
+        if path is not None and path !='':
+            image_path = colorizer.plot_transformed_image_from_url(url=path, 
+                                                                   render_factor=render_factor, 
+                                                                   compare=True)
+        else:
+            print('Provide an image url and try again.')
+    elif choice == "Uploaded":
+        render_factor = 35  #@param {type: "slider", min: 7, max: 40}
+        watermarked = False #@param {type:"boolean"}
 
-if source_url is not None and source_url !='':
-    image_path = colorizer.plot_transformed_image_from_url(url=source_url, render_factor=render_factor, compare=True, watermarked=watermarked)
-    show_image_in_notebook(image_path)
-else:
-    print('Provide an image url and try again.')
+        if path is not None and path !='':
+            image_path = colorizer.plot_transformed_image(url=path,
+                                                          render_factor=render_factor, 
+                                                          compare=True)
+        else:
+            print('Provide an image url and try again.')
+
+    else:
+        print('INVALID CHOICE')
+
+    print('You can see the result image in ', image_path)
