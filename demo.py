@@ -32,7 +32,7 @@ def post_process_sharpen(image):
 
 
 # Load your Generator model weights
-generator = load_model('45', demo=True)  # Replace with the path to your model weights
+generator = load_model('', demo=True)  # Replace with the path to your model weights
 generator.eval()
 
 def colorize_image(input_image, method):
@@ -57,16 +57,16 @@ def colorize_image(input_image, method):
 
         return post_process_sharpen(cv2.resize(colorized_image, (original_size[0], original_size[1])))
     
-    elif method == 'GFPGAN':
-        # _ = get_the_image_restoration(choice="Uploaded", path=file, output=generated_img_folder)
-        pass
+    elif method == 'Deoldify':
+        # _ = get_the_image_restoration(choice="Uploaded", path='', output='./generated_img_folder')
+        print('Input Image: ', input_image.name)
     else:
         raise ValueError("Invalid method selected. Please choose either 'Pix2Pix' or 'GFPGAN'.")
 
 # Gradio Interface
 iface = gr.Interface(
     fn=colorize_image,
-    inputs=["image", gr.inputs.Dropdown(["Pix2Pix", "GFPGAN"], label="Method")],
+    inputs=["image", gr.Dropdown(["Pix2Pix", "GFPGAN"], label="Method")],
     outputs="image",
     live=True,
     title="Image Colorization Demo",
