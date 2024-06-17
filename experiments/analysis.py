@@ -2,7 +2,9 @@ import csv
 from dataclasses import dataclass
 
 from fid import calculate_fid, load_images
-
+from matplotlib import pyplot as plt
+from PIL import Image
+import os
 
 @dataclass
 class MethodsEvaluation:
@@ -13,15 +15,17 @@ class MethodsEvaluation:
         self.folder = {
             "Pix2Pix": {
                 'generated': 'generated/Pix2Pix',
-                'original': 'original/Pix2Pix'
+                'original': 'original/Pix2Pix',
             },
             "GFPGAN": {
                 'generated': 'experiment_dataset/generated',
-                'original': 'experiment_dataset/original'
+                'original': 'experiment_dataset/original',
+                'input': 'experiment_dataset/input'
             },
             "Deoldify": {
                 'generated': 'experiment_dataset/deoldify',
-                'original': 'experiment_dataset/original'
+                'original': 'experiment_dataset/original',
+                'input': 'experiment_dataset/input'
             }
         }
         self.generated_path = self.folder[self.name]["generated"]
@@ -40,14 +44,15 @@ class MethodsEvaluation:
 
 
 if __name__ == "__main__":
-    names = ['Pix2Pix', 'GFPGAN', 'Deoldify']
+    names = [ 'Pix2Pix', 'GFPGAN', 'Deoldify']
 
     with open('report.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(['Methods', 'FID'])
+        # writer = csv.writer(file)
+        # writer.writerow(['Methods', 'FID'])
 
         for name in names:
             evaluation_instance = MethodsEvaluation(name=name, batch_size=64)
             fid_score = evaluation_instance.get_the_fid_score()
             print(f"FID score of {name} method is {fid_score}")
-            writer.writerow([name, fid_score])
+            # writer.writerow([name, fid_score])
+            evaluation_instance.visualize_the_results()

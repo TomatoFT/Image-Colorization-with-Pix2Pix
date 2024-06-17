@@ -14,7 +14,7 @@ from torchvision import transforms
 from methods.Pix2Pix.config.constants import MEAN, STD
 from methods.Pix2Pix.dataloader import Transform
 from methods.Pix2Pix.train import load_model
-from methods.DeOldify.inference import get_the_image_restoration
+# from methods.DeOldify.inference import get_the_image_restoration
 
 # Define the Generator and Discriminator
 
@@ -46,7 +46,7 @@ def colorize_image(input_image, method):
         original_size = img.size
 
         # Transform input image
-        input_tensor = transformer(img)
+        input_tensor = transformer(img) 
         input_tensor = torch.unsqueeze(input_tensor, 0)
 
         # Generate colorized image

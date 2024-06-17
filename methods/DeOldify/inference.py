@@ -1,7 +1,7 @@
 import os
 import warnings
 
-from deoldify.visualize import get_image_colorizer
+from .deoldify.visualize import get_image_colorizer
 
 
 def get_the_image_restoration(choice, path, output):
