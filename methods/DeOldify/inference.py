@@ -1,7 +1,7 @@
 import os
 import warnings
 
-from deoldify.visualize import get_image_colorizer
+from .deoldify.visualize import get_image_colorizer
 
 
 def get_the_image_restoration(choice, path, output):
@@ -35,18 +35,18 @@ def get_the_image_restoration(choice, path, output):
 
     print('You can see the result image in ', image_path)
 
-if __name__ == "__main__":
-    input_img_folder='/content/drive/MyDrive/experiment_dataset/input'
-    real_img_folder='/content/drive/MyDrive/experiment_dataset/original'
-    generated_img_folder='/content/drive/MyDrive/experiment_dataset/generated'
+# if __name__ == "__main__":
+#     input_img_folder='/content/drive/MyDrive/experiment_dataset/input'
+#     real_img_folder='/content/drive/MyDrive/experiment_dataset/original'
+#     generated_img_folder='/content/drive/MyDrive/experiment_dataset/generated'
     
 
-    input_images = os.listdir(input_img_folder)
-    real_images = os.listdir(real_img_folder)
-    # generated_images = os.listdir(generated_img_folder)
+#     input_images = os.listdir(input_img_folder)
+#     real_images = os.listdir(real_img_folder)
+#     # generated_images = os.listdir(generated_img_folder)
 
-    for img in input_images:
-        file = input_img_folder + '/' + img
-        _ = get_the_image_restoration(choice="Uploaded", path=file, output=generated_img_folder)
-        print("Done img ", img)
+#     for img in input_images:
+#         file = input_img_folder + '/' + img
+#         _ = get_the_image_restoration(choice="Uploaded", path=file, output=generated_img_folder)
+#         print("Done img ", img)
 
