@@ -29,15 +29,26 @@
 
 from super_image import EdsrModel, ImageLoader
 from PIL import Image
+from numpy import ndarray
+import uuid
+from datetime import datetime
 
-url = 'https://paperswithcode.com/media/datasets/Set5-0000002728-07a9793f_zA3bDjj.jpg'
-image = Image.open("/home/tomato/Desktop/Image-Colorization-with-Pix2Pix/experiments/generated/Pix2Pix/img34.png")
+def load_pretrained_model():
+    return EdsrModel.from_pretrained('eugenesiow/edsr-base', scale=4)    
 
+model = load_pretrained_model()
 
-def post_processing_image():
-    model = EdsrModel.from_pretrained('eugenesiow/edsr-base', scale=4)      # scale 2, 3 and 4 models available
+def save_image(image: ndarray) -> str:
+    name = uuid.uuid3(namespace=uuid.NAMESPACE_X500, name=str(datetime.now()))
+    ImageLoader.save_image(image, f'./demo_images/inputs/{name}.jpg')
+    return name + '.jpg'
+
+def post_processing_image(image: str) -> str:
     inputs = ImageLoader.load_image(image)
     preds = model(inputs)
 
-    ImageLoader.save_image(preds, './scaled_2x.png')                        # save the output 2x scaled image to `./scaled_2x.png`
-    ImageLoader.save_compare(inputs, preds, './scaled_2x_compare.png')     # save an output comparing the super-image with a bicubic scaling
+    ImageLoader.save_image(inputs, f'./demo_images/inputs/{image}')
+    ImageLoader.save_image(preds, f'./demo_images/outputs/{image}')
+    ImageLoader.save_compare(inputs, preds, f'./demo_images/compared/{image}')
+
+    return image
