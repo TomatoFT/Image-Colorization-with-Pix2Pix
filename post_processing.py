@@ -41,10 +41,11 @@ model = load_pretrained_model()
 def save_image(image: ndarray) -> str:
     print(f"++++++Type: {type(image)} +++++++++")
     name = uuid.uuid3(namespace=uuid.NAMESPACE_X500, name=str(datetime.now()))
-    try:
-        ImageLoader.save_image(image, f'./demo_images/inputs/{name}.jpg')
-    except:
-        cv2.imwrite(filename=f'./demo_images/inputs/{name}.jpg', img=image)
+    # try:
+    #     ImageLoader.save_image(image, f'./demo_images/inputs/{name}.jpg')
+    # except:
+    
+    cv2.imwrite(filename=f'./demo_images/inputs/{name}.jpg', img=image)
     return f'./demo_images/inputs/{name}.jpg'
 
 def post_processing_image(image: str) -> str:
