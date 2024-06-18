@@ -32,19 +32,24 @@ from PIL import Image
 from numpy import ndarray
 import uuid
 from datetime import datetime
-
+import cv2
 def load_pretrained_model():
     return EdsrModel.from_pretrained('eugenesiow/edsr-base', scale=4)    
 
 model = load_pretrained_model()
 
 def save_image(image: ndarray) -> str:
+    print(f"++++++Type: {type(image)} +++++++++")
     name = uuid.uuid3(namespace=uuid.NAMESPACE_X500, name=str(datetime.now()))
-    ImageLoader.save_image(image, f'./demo_images/inputs/{name}.jpg')
-    return name + '.jpg'
+    try:
+        ImageLoader.save_image(image, f'./demo_images/inputs/{name}.jpg')
+    except:
+        cv2.imwrite(filename=f'./demo_images/inputs/{name}.jpg', img=image)
+    return f'./demo_images/inputs/{name}.jpg'
 
 def post_processing_image(image: str) -> str:
-    inputs = ImageLoader.load_image(image)
+    image_raw = Image.open(image)
+    inputs = ImageLoader.load_image(image_raw)
     preds = model(inputs)
 
     ImageLoader.save_image(inputs, f'./demo_images/inputs/{image}')

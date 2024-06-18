@@ -58,7 +58,7 @@ def colorize_image(input_image, method):
 
         colorized_image = de_norm(colorized_tensor[0].cpu())
 
-        image_name = save_image(colorize_image)
+        image_name = save_image(colorized_image)
 
         result_img_path = post_processing_image(image=image_name)
 
